@@ -18,3 +18,9 @@ build-3a: clean
 
 test-3a: build-3a
 	maelstrom test -w broadcast --bin ./bin/main --node-count 1 --time-limit 20 --rate 10
+
+build-3b: clean
+	go build -o ./bin/main ./broadcast-b/main.go
+
+test-3b: build-3b
+	maelstrom test -w broadcast --bin ./bin/main --node-count 5 --time-limit 20 --rate 10
