@@ -1,18 +1,15 @@
-package main
+package unique
 
 import (
 	"fmt"
-	"log"
 	"time"
 
 	maelstrom "github.com/jepsen-io/maelstrom/demo/go"
 )
 
-func main() {
-	var cur int32
+var cur int32
 
-	n := maelstrom.NewNode()
-
+func Handle(n *maelstrom.Node) {
 	n.Handle("generate", func(msg maelstrom.Message) error {
 		cur += 1
 
@@ -23,8 +20,4 @@ func main() {
 
 		return n.Reply(msg, response)
 	})
-
-	if err := n.Run(); err != nil {
-		log.Fatal(err)
-	}
 }

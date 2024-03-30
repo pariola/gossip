@@ -1,26 +1,13 @@
-package main
+package broadcast
 
 import (
 	"encoding/json"
-	"log"
 	"sync"
 
 	maelstrom "github.com/jepsen-io/maelstrom/demo/go"
 )
 
-type (
-	broadcastMsg struct {
-		Message int `json:"message"`
-	}
-
-	topologyMsg struct {
-		Topology map[string][]string `json:"topology"`
-	}
-)
-
-func main() {
-	n := maelstrom.NewNode()
-
+func HandleBSimple(n *maelstrom.Node) {
 	var rw sync.RWMutex
 	messagesMap := make(map[int]struct{})
 
@@ -78,8 +65,4 @@ func main() {
 
 		return n.Reply(msg, response)
 	})
-
-	if err := n.Run(); err != nil {
-		log.Fatal(err)
-	}
 }

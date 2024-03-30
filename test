@@ -1,0 +1,36 @@
+#!/bin/sh
+
+function build() {
+  go build -o ./bin/main -ldflags="-X 'main.run=$1'" ./cmd/main.go
+}
+
+case $1 in 
+  "clean") 
+    rm -rf ./bin
+    ;; 
+  "echo"|"1") 
+    build "echo"
+    maelstrom test -w echo --bin ./bin/main --node-count 1 --time-limit 10
+    ;;
+  "unique"|"2") 
+    build "unique"
+    maelstrom test -w unique-ids --bin ./bin/main --time-limit 30 --rate 1000 --node-count 3 --availability total --nemesis partition
+    ;;
+  "broadcast-a"|"3a") 
+    build "broadcast-a"
+    maelstrom test -w broadcast --bin ./bin/main --node-count 1 --time-limit 20 --rate 10
+    ;;
+  "broadcast-b"|"3b") 
+    build "broadcast-b"
+    maelstrom test -w broadcast --bin ./bin/main --node-count 5 --time-limit 20 --rate 10
+    ;;
+  "broadcast-bs"|"3bs") 
+    build "broadcast-bs"
+    maelstrom test -w broadcast --bin ./bin/main --node-count 5 --time-limit 20 --rate 10
+    ;;
+  *)
+    echo "unknown test: $1"
+    ;;
+esac
+
+exit 1

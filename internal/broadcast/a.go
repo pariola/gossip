@@ -1,8 +1,7 @@
-package main
+package broadcast
 
 import (
 	"encoding/json"
-	"log"
 
 	maelstrom "github.com/jepsen-io/maelstrom/demo/go"
 )
@@ -15,9 +14,7 @@ type topologyMsg struct {
 	Topology map[string][]string `json:"topology"`
 }
 
-func main() {
-	n := maelstrom.NewNode()
-
+func HandleA(n *maelstrom.Node) {
 	messages := make([]int, 0)
 	// neighbours := make([]string, 0)
 
@@ -53,8 +50,4 @@ func main() {
 		}
 		return n.Reply(msg, response)
 	})
-
-	if err := n.Run(); err != nil {
-		log.Fatal(err)
-	}
 }

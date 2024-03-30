@@ -1,15 +1,12 @@
-package main
+package echo
 
 import (
 	"encoding/json"
-	"log"
 
 	maelstrom "github.com/jepsen-io/maelstrom/demo/go"
 )
 
-func main() {
-	n := maelstrom.NewNode()
-
+func Handle(n *maelstrom.Node) {
 	n.Handle("echo", func(msg maelstrom.Message) error {
 		// Unmarshal the message body as an loosely-typed map.
 		var body map[string]any
@@ -23,8 +20,4 @@ func main() {
 		// Echo the original message back with the updated message type.
 		return n.Reply(msg, body)
 	})
-
-	if err := n.Run(); err != nil {
-		log.Fatal(err)
-	}
 }

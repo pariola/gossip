@@ -1,9 +1,7 @@
-package main
+package broadcast
 
 import (
 	"encoding/json"
-	"log"
-	// "math/rand"
 	"sync"
 	"time"
 
@@ -26,14 +24,6 @@ type (
 
 		messages     []int
 		seenMessages map[int]struct{}
-	}
-
-	broadcastMsg struct {
-		Message int `json:"message"`
-	}
-
-	topologyMsg struct {
-		Topology map[string][]string `json:"topology"`
 	}
 
 	syncRequestMsg struct {
@@ -65,9 +55,7 @@ func (s *state) touch() {
 	s.count.Time++ // increase local time
 }
 
-func main() {
-	n := maelstrom.NewNode()
-
+func HandleB(n *maelstrom.Node) {
 	s := &state{
 		counters: make(map[string]*counter),
 
@@ -165,10 +153,6 @@ func main() {
 
 		return n.Reply(msg, response)
 	})
-
-	if err := n.Run(); err != nil {
-		log.Fatal(err)
-	}
 }
 
 func syncer(n *maelstrom.Node, s *state) {
