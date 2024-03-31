@@ -28,6 +28,10 @@ case $1 in
     build "broadcast-bs"
     maelstrom test -w broadcast --bin ./bin/main --node-count 5 --time-limit 20 --rate 10
     ;;
+  "g-counter"|"4") 
+    build "g-counter"
+    maelstrom test -w g-counter --bin ./bin/main --node-count 3 --rate 100 --time-limit 20 --nemesis partition
+    ;;
   *)
     echo "unknown test: $1"
     ;;

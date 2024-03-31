@@ -1,10 +1,12 @@
 package main
 
 import (
+	"log"
+
 	"gossip/internal/broadcast"
+	"gossip/internal/counter"
 	"gossip/internal/echo"
 	"gossip/internal/unique"
-	"log"
 
 	maelstrom "github.com/jepsen-io/maelstrom/demo/go"
 )
@@ -16,6 +18,7 @@ var (
 	runners = map[string]handlerFn{
 		"echo":         echo.Handle,
 		"unique":       unique.Handle,
+		"g-counter":    counter.Handle,
 		"broadcast-a":  broadcast.HandleA,
 		"broadcast-b":  broadcast.HandleB,
 		"broadcast-bs": broadcast.HandleBSimple,
