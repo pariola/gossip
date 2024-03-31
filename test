@@ -32,6 +32,10 @@ case $1 in
     build "g-counter"
     maelstrom test -w g-counter --bin ./bin/main --node-count 3 --rate 100 --time-limit 20 --nemesis partition
     ;;
+  "g-counter-2") 
+    build "g-counter-2"
+    maelstrom test -w g-counter --bin ./bin/main --node-count 3 --rate 100 --time-limit 20 --nemesis partition
+    ;;
   *)
     echo "unknown test: $1"
     ;;

@@ -19,6 +19,7 @@ var (
 		"echo":         echo.Handle,
 		"unique":       unique.Handle,
 		"g-counter":    counter.Handle,
+		"g-counter-2":  counter.HandleWithCommunication,
 		"broadcast-a":  broadcast.HandleA,
 		"broadcast-b":  broadcast.HandleB,
 		"broadcast-bs": broadcast.HandleBSimple,
