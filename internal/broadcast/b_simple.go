@@ -43,6 +43,10 @@ func HandleBSimple(n *maelstrom.Node) {
 		messagesMap[body.Message] = struct{}{}
 
 		for _, neighbour := range neighbours {
+			if neighbour == msg.Src {
+				continue // skip origin
+			}
+
 			n.Send(neighbour, msg.Body)
 		}
 
