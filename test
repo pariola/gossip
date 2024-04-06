@@ -36,6 +36,10 @@ case $1 in
     build "g-counter-2"
     maelstrom test -w g-counter --bin ./bin/main --node-count 3 --rate 100 --time-limit 20 --nemesis partition
     ;;
+  "kafka-sn"|"5a") 
+    build "kafka-sn"
+    maelstrom test -w kafka --bin ./bin/main --node-count 1 --concurrency 2n --time-limit 20 --rate 1000
+    ;;
   *)
     echo "unknown test: $1"
     ;;
